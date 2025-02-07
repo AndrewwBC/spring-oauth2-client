@@ -1,5 +1,6 @@
 package com.andrew.oauth2.controller;
 
+import com.andrew.oauth2.dto.ResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,9 @@ public class AuthController {
     }
 
     @GetMapping("/test")
-    public ResponseEntity<String> user() {
-        return ResponseEntity.status(HttpStatus.OK).body("testing");
+    public ResponseEntity<ResponseDTO> user() {
+        ResponseDTO responseDTO = new ResponseDTO("testing");
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
 
     @PostMapping("/logout")
