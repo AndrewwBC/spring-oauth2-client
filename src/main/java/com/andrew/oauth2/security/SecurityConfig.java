@@ -16,15 +16,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user").permitAll()
-                        .requestMatchers("/logout").permitAll()
                         .requestMatchers("test").permitAll()
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-                .oauth2Login();
+                .oauth2Login(oauth2 ->
+                        oauth2.defaultSuccessUrl("http://localhost:5173/user", true));
 
         return http.build();
     }
